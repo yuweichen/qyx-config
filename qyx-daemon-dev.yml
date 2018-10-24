@@ -1,0 +1,53 @@
+## spring security 配置
+security:
+  oauth2:
+    client:
+      client-id: ENC(tz2NM4GcmnE7sNJTYL8ZSg==)
+      client-secret: ENC(tz2NM4GcmnE7sNJTYL8ZSg==)
+      scope: server
+
+## 定时任务
+spring:
+  # 保存定时任务的数据源
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 111111
+    url: jdbc:mysql://192.168.1.249:3306/qyx?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false
+  elasticjob:
+    # 分布式任务协调依赖zookeeper
+    zookeeper:
+      server-lists: zookeeper:2181
+      namespace: qyx-daemon
+    # 普通任务
+    simples:
+      spring-simple-job:
+        job-class: com.qyx.daemon.job.QyxSimpleJob
+        cron: 0 0 0/1 * * ?
+        sharding-total-count: 3
+        sharding-item-parameters: 0=service1,1=service2,2=service3
+        eventTraceRdbDataSource: 'dataSource'
+        listener:
+          listener-class: com.qyx.daemon.listener.QyxElasticJobListener
+      spring-simple-job2:
+        job-class: com.qyx.daemon.job.QyxSimpleJob2
+        cron: 0 0 0/1 * * ?
+        sharding-total-count: 3
+        sharding-item-parameters: 0=service1,1=service2,2=service3
+        eventTraceRdbDataSource: 'dataSource'
+        listener:
+          listener-class: com.qyx.daemon.listener.QyxElasticJobListener
+    # 简单任务
+    dataflows:
+      spring-dataflow-job:
+        job-class: com.qyx.daemon.job.QyxDataflowJob
+        cron: 0 0 0/1 * * ?
+        sharding-total-count: 3
+        sharding-item-parameters: 0=service1,1=service2,2=service3
+        streaming-process: true
+        eventTraceRdbDataSource: 'dataSource'
+        listener:
+          distributed-listener-class: com.qyx.daemon.listener.QyxDistributeElasticJobListener
+          started-timeout-milliseconds: 5000
+          completed-timeout-milliseconds: 10000
