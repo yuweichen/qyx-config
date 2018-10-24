@@ -1,6 +1,6 @@
-spring:
-  application:
-    name: qyx-config-s
+#spring:
+#  application:
+#    name: qyx-config-s
     
 # 加解密根密码
 jasypt:
