@@ -1,6 +1,7 @@
 spring:
   application:
     name: qyx-config
+    
 # 加解密根密码
 jasypt:
   encryptor:
