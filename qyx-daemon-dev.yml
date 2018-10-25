@@ -2,8 +2,8 @@
 security:
   oauth2:
     client:
-      client-id: ENC(tz2NM4GcmnE7sNJTYL8ZSg==)
-      client-secret: ENC(tz2NM4GcmnE7sNJTYL8ZSg==)
+      client-id: ENC(MPR5ns0VJAj2a5wI5OG8sw==) #daemon
+      client-secret: ENC(MPR5ns0VJAj2a5wI5OG8sw==) #daemon
       scope: server
 
 ## 定时任务
